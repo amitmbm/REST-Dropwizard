@@ -1,0 +1,55 @@
+server:
+  type: default
+  minThreads: 20
+  maxThreads: 1024
+  requestLog:
+    appenders:
+        - type: file
+          threshold: INFO
+          timeZone: IST
+          currentLogFilename: /var/log/ami/product-service/request.log
+          archivedLogFilenamePattern: /var/log/ami/product-service/request-%d{yyyy-MM-dd-hh}.log
+          archivedFileCount: 50
+        - type: console
+          timeZone: IST
+  applicationConnectors:
+    - type: http
+      port: 9090
+      acceptorThreads: 5
+  adminConnectors:
+    - type: http
+      port: 9091
+  gzip:
+    bufferSize: 8KiB
+
+logging:
+  level: INFO
+  loggers:
+    com.ami: INFO
+  appenders:
+    - type: file
+      threshold: TRACE
+      timeZone: IST
+      logFormat: "%highlight(%-5level) [%date] [%thread] [%cyan(%logger{0})] %message%n"
+      currentLogFilename: /var/log/ami/product-service/service.log
+      archivedLogFilenamePattern: /var/log/ami/product-service/service-%d{yyyy-MM-dd-hh}.log
+      archivedFileCount: 50
+    - type: console
+      timeZone: IST
+
+# to point to AWS-EC2
+
+elasticSearch:
+  hosts:
+    - 52.66.108.200:9300
+  default_no_of_shards: 1
+  default_no_of_replicas: 1
+
+#elasticSearch:
+#   hosts:
+#     - localhost:9300
+#   default_no_of_shards: 1
+#   default_no_of_replicas: 1
+
+swagger:
+  resourcePackage: com.ami.resources
