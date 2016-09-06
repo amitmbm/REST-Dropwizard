@@ -3,6 +3,8 @@ package com.ami.resources;
 import com.ami.entities.Index;
 import com.ami.service.admin.ClusterService;
 import com.ami.service.user.ProductService;
+import com.codahale.metrics.annotation.ExceptionMetered;
+import com.codahale.metrics.annotation.Timed;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.inject.Inject;
 import com.wordnik.swagger.annotations.Api;
@@ -45,6 +47,8 @@ public class ClusterResource {
     }
 
     @POST
+    @Timed
+    @ExceptionMetered
     @Consumes(MediaType.APPLICATION_JSON)
     @ApiOperation(value = "To register a index in es cluster", notes = "API to create a index", response = String.class)
     public Response createIndex(@Valid Index index){

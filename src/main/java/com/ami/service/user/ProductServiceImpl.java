@@ -17,16 +17,20 @@ import org.elasticsearch.search.SearchHit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by amit.khandelwal on 14/08/16.
  */
 
-@Getter @Setter @NoArgsConstructor
+@Getter
+@Setter
+@NoArgsConstructor
 public class ProductServiceImpl implements ProductService {
 
     private static final Logger logger = LoggerFactory.getLogger(ProductServiceImpl.class);
@@ -41,31 +45,19 @@ public class ProductServiceImpl implements ProductService {
         this.mapper = mapper;
     }
 
-    /*private void loadProducts() {
-        SearchResponse response = productIndex.getAll();
-        for(SearchHit hit : response.getHits()){
-            try{
-                Product product = mapper.readValue(mapper.writeValueAsString(hit.getSource()),Product.class);
-                products.put(product.getId(),product);
-            } catch (Exception e){
-                logger.error("Error in loading products ",e);
-            }
-        }
-
-    }*/
-
     @Override
     /**
      * TODO :- Need to generate the product uuid.
      */
     public Product add(Product product) throws Exception {
+        product.setId(UUID.randomUUID().toString());
         try {
-            indexService.post(ApplicationConstants.productIdxName,ApplicationConstants.productIdxType,product.getId(),mapper.writeValueAsString(product));
+            indexService.post(ApplicationConstants.productIdxName, ApplicationConstants.productIdxType, product.getId(), mapper.writeValueAsString(product));
         } catch (JsonProcessingException e) {
-            logger.error("Error in serializing product",e);
-            throw new ServiceException(500, ServiceError.INTERNAL_ERROR,e.getMessage());
+            logger.error("Error in serializing product", e);
+            throw new ServiceException(500, ServiceError.INTERNAL_ERROR, e.getMessage());
         }
-        return null;
+        return product;
     }
 
     @Override
@@ -74,26 +66,22 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product get(String id) throws Exception {
-            GetResponse response = indexService.get(ApplicationConstants.productIdxName,ApplicationConstants.productIdxType,id);
-            Product product = null;
-            if(response.isExists()){
-                try{
-                    product = mapper.readValue(mapper.writeValueAsString(response.getSource()),Product.class);
-                } catch (Exception e){
-                    logger.error("Error in getting products details",e);
-                }
-            }
+    public Product get(String id) throws IOException {
+        GetResponse response = indexService.get(ApplicationConstants.productIdxName, ApplicationConstants.productIdxType, id);
+        Product product = null;
+        if (response.isExists()) {
+            product = mapper.readValue(mapper.writeValueAsString(response.getSource()), Product.class);
+        }
         return product;
     }
 
     @Override
     public List<Product> getAll() throws Exception {
-        SearchResponse searchResponse =indexService.getAll(ApplicationConstants.productIdxName);
+        SearchResponse searchResponse = indexService.getAll(ApplicationConstants.productIdxName);
         List<Product> products = new ArrayList<>();
-        Product product=null;
-        for(SearchHit searchHit : searchResponse.getHits()){
-            product = mapper.readValue(mapper.writeValueAsString(searchHit.getSource()),Product.class);
+        Product product = null;
+        for (SearchHit searchHit : searchResponse.getHits()) {
+            product = mapper.readValue(mapper.writeValueAsString(searchHit.getSource()), Product.class);
             products.add(product);
         }
         return products;

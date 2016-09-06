@@ -1,7 +1,7 @@
 server:
   type: default
-  minThreads: 20
-  maxThreads: 1024
+  minThreads: 5
+  maxThreads: 40
   requestLog:
     appenders:
         - type: file
@@ -14,11 +14,11 @@ server:
           timeZone: IST
   applicationConnectors:
     - type: http
-      port: 9090
+      port: 7070
       acceptorThreads: 5
   adminConnectors:
     - type: http
-      port: 9091
+      port: 7071
   gzip:
     bufferSize: 8KiB
 
@@ -44,12 +44,6 @@ elasticSearch:
     - 52.66.123.19:9300
   default_no_of_shards: 1
   default_no_of_replicas: 1
-
-#elasticSearch:
-#   hosts:
-#     - localhost:9300
-#   default_no_of_shards: 1
-#   default_no_of_replicas: 1
 
 swagger:
   resourcePackage: com.ami.resources
