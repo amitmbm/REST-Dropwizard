@@ -2,12 +2,10 @@ package com.ami.test.integration;
 
 import com.ami.ElasticSearchDropWizardApp;
 import com.ami.config.AppConfig;
-import com.ami.config.ElasticSearchConfiguration;
 import com.ami.entities.Index;
 import com.ami.entities.Product;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.dataformat.yaml.snakeyaml.events.Event;
 import io.dropwizard.testing.ResourceHelpers;
 import io.dropwizard.testing.junit.DropwizardAppRule;
 import org.glassfish.jersey.client.JerseyClientBuilder;
@@ -22,7 +20,6 @@ import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @author: Amit Khandelwal
