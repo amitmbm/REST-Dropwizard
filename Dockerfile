@@ -24,4 +24,4 @@ WORKDIR /usr/share/product-service
 EXPOSE 9090 9091
 
 
-CMD java -server  -Xms512m -Xmx512m -XX:+UseConcMarkSweepGC -XX:SurvivorRatio=4 -XX:CompileThreshold=100 -cp /usr/share/product-service/dropwizard.jar com.ami.ElasticSearchDropWizardApp server /etc/product-service/productservice.yml
+CMD java -server  -Xms512m -Xmx512m -XX:+UseConcMarkSweepGC -XX:SurvivorRatio=4 -XX:CompileThreshold=100 -cp /usr/share/product-service/dropwizard.jar com.ami.DropWizardApp server /etc/product-service/productservice.yml

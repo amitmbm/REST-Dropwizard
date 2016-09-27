@@ -64,7 +64,7 @@
                             <transformers>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>com.ami.ElasticSearchDropWizardApp</mainClass>
+                                    <mainClass>com.ami.DropWizardApp</mainClass>
                                 </transformer>
                             </transformers>
                         </configuration>
@@ -237,6 +237,11 @@
             <groupId>io.federecio</groupId>
             <artifactId>dropwizard-swagger</artifactId>
             <version>${dropwizard.swagger.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.bendb.dropwizard</groupId>
+            <artifactId>dropwizard-redis</artifactId>
+            <version>1.0.0-0</version>
         </dependency>
     </dependencies>
 </project>

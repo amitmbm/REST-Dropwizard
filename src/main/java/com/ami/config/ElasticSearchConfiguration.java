@@ -21,4 +21,5 @@ public class ElasticSearchConfiguration {
     @JsonProperty("default_no_of_replicas")
     private int defaultNumberOfReplicasOnIndex;
 
+
 }

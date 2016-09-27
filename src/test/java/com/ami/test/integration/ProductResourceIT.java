@@ -1,7 +1,7 @@
 package com.ami.test.integration;
 
-import com.ami.ElasticSearchDropWizardApp;
-import com.ami.config.AppConfig;
+import com.ami.DropWizardApp;
+import com.ami.ApplicationConfig;
 import com.ami.entities.Index;
 import com.ami.entities.Product;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -40,7 +40,7 @@ public class ProductResourceIT {
     private final Index index = new Index(IDX_NAME, "integ");
 
     @ClassRule
-    public static final DropwizardAppRule<AppConfig> rule = new DropwizardAppRule<AppConfig>(ElasticSearchDropWizardApp.class, CONFIG_PATH);
+    public static final DropwizardAppRule<ApplicationConfig> rule = new DropwizardAppRule<ApplicationConfig>(DropWizardApp.class, CONFIG_PATH);
 
     @Before
     public void setup() throws JsonProcessingException {

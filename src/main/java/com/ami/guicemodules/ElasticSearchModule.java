@@ -1,7 +1,7 @@
 package com.ami.guicemodules;
 
 import com.ami.config.ElasticSearchConfiguration;
-import com.ami.config.AppConfig;
+import com.ami.ApplicationConfig;
 import com.ami.service.IndexService;
 import com.ami.service.IndexServiceImpl;
 import com.ami.service.admin.ElasticSearchClusterServiceImpl;
@@ -41,7 +41,7 @@ public class ElasticSearchModule extends AbstractModule {
 
 	/* provides the Elastic Search transport client */
 	@Provides
-	public TransportClient provideTransportClient(AppConfig AppConfig){
+	public TransportClient provideTransportClient(ApplicationConfig AppConfig){
 		return elasticSearchClient;
 	}
 
@@ -53,7 +53,7 @@ public class ElasticSearchModule extends AbstractModule {
 
 
 	@Provides
-	public ElasticSearchConfiguration providesESConfig(AppConfig configuration){
+	public ElasticSearchConfiguration providesESConfig(ApplicationConfig configuration){
 		return configuration.getElasticSearchConfiguration();
 	}
 
